@@ -1,0 +1,9 @@
+# Ignore generated data
+components/custom/smtp/config/**
+components/smtp/config/**
+
+# Ignore database data
+components/db/data/**
+
+# Ignore smtp user data
+components/smtp/users.dat

@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  keycloak_db:
+    image: mysql
+    container_name: keycloak_db
+    env_file:
+      - ./env/common.env
+      - ./env/mysql.env
+    volumes:
+      - ./components/db/data/mysql:/var/lib/mysql
+    networks: 
+      - keycloak_net
+  
+  keycloak:
+    image: jboss/keycloak
+    container_name: keycloak
+    env_file:
+      - ./env/common.env
+      - ./env/keycloak.env
+    ports:
+      - "8181:8080"
+    links:
+      - keycloak_db
+    networks: 
+      - keycloak_net
+  
+  smtpserver:
+    image: universiaid/smtp:pok
+    hostname: smtpserver
+    domainname: universiaid
+    container_name: smtpserver
+    volumes:
+      - maildata:/var/mail
+      - mailstate:/var/mail-state
+      - ./components/smtp/config:/tmp/docker-mailserver/
+    env_file:
+      - ./env/smtpserver.env
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+    networks: 
+      - keycloak_net
+
+volumes:
+  maildata:
+    driver: local
+  mailstate:
+    driver: local
+
+networks:
+  keycloak_net:
+    driver: bridge

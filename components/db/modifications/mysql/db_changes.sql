@@ -1,0 +1,6 @@
+-- Add new fields to USER_ENTITY table in order to store data of the user trackID
+ALTER TABLE USER_ENTITY ADD TRACK_ID_SEED VARCHAR(255) DEFAULT '';
+ALTER TABLE USER_ENTITY ADD TRACK_ID_SEED_INTERVAL INT DEFAULT 0;
+
+-- Create trigger on USER_ENTITY to create track_id_seed when one user is created
+CREATE TRIGGER track_id_seed_user_gen BEFORE INSERT ON `USER_ENTITY` FOR EACH ROW SET NEW.TRACK_ID_SEED = SHA1(CONCAT('@',NOW(),NEW.EMAIL_CONSTRAINT)), NEW.TRACK_ID_SEED_INTERVAL = 0;

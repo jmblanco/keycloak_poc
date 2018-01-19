@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  smtpserver:
+    image: tvial/docker-mailserver:latest
+    hostname: smtpserver
+    domainname: universiaid
+    container_name: smtpserver
+    volumes:
+      - maildata:/var/mail
+      - mailstate:/var/mail-state
+      - ./config:/tmp/docker-mailserver/
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - ENABLE_POSTGREY=1
+      - ONE_DIR=1
+      - DMS_DEBUG=0
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+
+volumes:
+  maildata:
+    driver: local
+  mailstate:
+    driver: local
