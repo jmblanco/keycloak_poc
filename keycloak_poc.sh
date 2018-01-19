@@ -1,19 +1,9 @@
 #!/bin/bash
 
-# Use mode
-# ./keycloak_pok.sh acion
-#   Where action:
-#   - gen-smtp-config
-#   - docker-compose
-#   - docker-compose-d
-#   - stop-dockers
-#   - start-dockers
-#   - prune-dockers
-
 NUM_ARGS=$#
 if [ $NUM_ARGS -ne 1 ]; then
     echo "`date '+%Y-%m-%d %H:%M:%S'` [WARN]: Use mode:"
-    echo ". keycloak_pok.sh ACTION"
+    echo "./keycloak_poc.sh ACTION"
     echo "  Where ATION:"
     echo "  - gen-smtp-config: Generate user data smtp configuration."
     echo "  - docker-compose: Launch docker-compose"
