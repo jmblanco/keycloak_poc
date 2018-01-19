@@ -30,22 +30,21 @@ case "$OPTION" in
         docker-compose up -d
     ;;
     ("stop-dockers")
-        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Stop all keycloak_pok launched dockers"
-        docker stop keycloak smtpserver keycloak_db
+        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Stop all keycloak_poc launched dockers"
+        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater
     ;;
     ("start-dockers")
-        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Start all keycloak_pok dockers"
-        docker start keycloak smtpserver keycloak_db
+        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Start all keycloak_poc dockers"
+        docker start keycloak smtpserver keycloak_db keycloak_dbupdater
     ;;
     ("prune-dockers")
-        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Prune all keycloak_pok dockers and associated resources"
-        docker stop keycloak smtpserver keycloak_db
-        docker rm keycloak smtpserver keycloak_db
+        echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Prune all keycloak_poc dockers and associated resources"
+        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater
+        docker rm keycloak smtpserver keycloak_db keycloak_dbupdater
         docker volume prune
         docker network prune
     ;;
     (*)
         echo "`date '+%Y-%m-%d %H:%M:%S'` [ERROR]: Invalid action"
-    
     ;;
 esac

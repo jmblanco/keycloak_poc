@@ -9,12 +9,15 @@ services:
       - ./env/mysql.env
     volumes:
       - ./components/db/data/mysql:/var/lib/mysql
+      - ./components/db/modifications/mysql:/tmp/mysqlmod
     networks: 
       - keycloak_net
   
   keycloak:
     image: jboss/keycloak
     container_name: keycloak
+    depends_on:
+      - keycloak_db
     env_file:
       - ./env/common.env
       - ./env/keycloak.env
@@ -26,7 +29,7 @@ services:
       - keycloak_net
   
   smtpserver:
-    image: universiaid/smtp:pok
+    image: tvial/docker-mailserver:latest
     hostname: smtpserver
     domainname: universiaid
     container_name: smtpserver
@@ -39,6 +42,20 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_PTRACE
+    networks: 
+      - keycloak_net
+
+  dkr:
+    image: maesechemy/docker_wait
+    container_name: keycloak_dbupdater
+    privileged: true
+    depends_on:
+      - keycloak
+    working_dir: "/dkr"
+    volumes:
+      - ".:/dkr"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: bash -c "/tmp/wait-for-it.sh -t 60 keycloak:8181 -- echo 'Keycloak started!' && docker exec keycloak_db sh -c 'mysql -uroot -proot_password keycloak < /tmp/mysqlmod/db_changes.sql'"
     networks: 
       - keycloak_net
 
