@@ -5,8 +5,6 @@ USERS_DATA_FILE="users.dat"
 GENERATED_FOLDER="config"
 GENERATED_POSTFIX_ACCOUNTS_FILE="$GENERATED_FOLDER/postfix-accounts.cf"
 
-echo "hola"
-exit 2
 # Remove data from previous runs
 rm -Rf $GENERATED_FOLDER
 

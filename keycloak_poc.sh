@@ -19,7 +19,8 @@ OPTION=$1
 case "$OPTION" in
     ("gen-smtp-config")
         echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Generating user data smtp configuration..."
-        . components/smtp/generate-config.sh
+        cd components/smtp
+        ./generate-config.sh
     ;;
     ("docker-compose")
         echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Launching docker compose..."
