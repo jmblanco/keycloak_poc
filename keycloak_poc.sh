@@ -32,16 +32,16 @@ case "$OPTION" in
     ;;
     ("stop-dockers")
         echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Stop all keycloak_poc launched dockers"
-        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater
+        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater keycloak_examples
     ;;
     ("start-dockers")
         echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Start all keycloak_poc dockers"
-        docker start keycloak smtpserver keycloak_db keycloak_dbupdater
+        docker start keycloak smtpserver keycloak_db keycloak_dbupdater keycloak_examples
     ;;
     ("prune-dockers")
         echo "`date '+%Y-%m-%d %H:%M:%S'` [INFO]: Prune all keycloak_poc dockers and associated resources"
-        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater
-        docker rm keycloak smtpserver keycloak_db keycloak_dbupdater
+        docker stop keycloak smtpserver keycloak_db keycloak_dbupdater keycloak_examples
+        docker rm keycloak smtpserver keycloak_db keycloak_dbupdater keycloak_examples
         docker volume prune
         docker network prune
     ;;

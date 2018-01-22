@@ -46,7 +46,8 @@ services:
       - keycloak_net
 
   dkr:
-    image: maesechemy/docker_wait
+    #image: maesechemy/docker_wait
+    build: components/custom/docker_wait
     container_name: keycloak_dbupdater
     privileged: true
     depends_on:
@@ -58,6 +59,14 @@ services:
     command: bash -c "/tmp/wait-for-it.sh -t 60 keycloak:8181 -- echo 'Keycloak started!' && docker exec keycloak_db sh -c 'mysql -uroot -proot_password keycloak < /tmp/mysqlmod/db_changes.sql'"
     networks: 
       - keycloak_net
+
+  #keycloak_examples:
+    #build: components/keycloak_demos
+    #container_name: keycloak_examples
+    #ports:
+      #- "8080:8080"
+    #networks: 
+      #- keycloak_net
 
 volumes:
   maildata:
