@@ -14,7 +14,8 @@ services:
       - keycloak_net
   
   keycloak:
-    image: jboss/keycloak
+    #image: jboss/keycloak
+    build: components/custom/keycloak_ha_mysql
     container_name: keycloak
     depends_on:
       - keycloak_db
@@ -25,6 +26,8 @@ services:
       - "8181:8080"
     links:
       - keycloak_db
+    #volumes:
+    #  - ./components/custom/keycloak_ha_mysql/themes:/opt/jboss/keycloak/themes
     networks: 
       - keycloak_net
   
