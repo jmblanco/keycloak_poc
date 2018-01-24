@@ -1,9 +1,8 @@
 # Ignore generated data
-components/custom/smtp/config/**
 components/smtp/config/**
 
 # Ignore keycloak Themes links as volume
-components/custom/keycloak_ha_mysql/themes
+components/keycloak/keycloak_ha/themes
 
 # Ignore database data
 components/db/data/**

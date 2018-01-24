@@ -14,8 +14,7 @@ services:
       - keycloak_net
   
   keycloak:
-    #image: jboss/keycloak
-    build: components/custom/keycloak_ha_mysql
+    build: components/keycloak/keycloak_ha
     container_name: keycloak
     depends_on:
       - keycloak_db
@@ -27,7 +26,7 @@ services:
     links:
       - keycloak_db
     #volumes:
-    #  - ./components/custom/keycloak_ha_mysql/themes:/opt/jboss/keycloak/themes
+    #  - ./components/keycloak/keycloak_ha/themes:/opt/jboss/keycloak/themes
     networks: 
       - keycloak_net
   
@@ -49,8 +48,7 @@ services:
       - keycloak_net
 
   dkr:
-    #image: maesechemy/docker_wait
-    build: components/custom/docker_wait
+    build: components/util/docker_wait
     container_name: keycloak_dbupdater
     privileged: true
     depends_on:
