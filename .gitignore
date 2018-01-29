@@ -4,6 +4,9 @@ components/smtp/config/**
 # Ignore keycloak Themes links as volume
 components/keycloak/keycloak_ha/themes
 
+# Ignore generated keycloak files export
+components/keycloak/export/files
+
 # Ignore database data
 components/db/data/**
 

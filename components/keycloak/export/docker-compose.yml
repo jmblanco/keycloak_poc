@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  keycloak_db_export:
+    image: mariadb
+    container_name: keycloak_db_export
+    env_file:
+      - ./env/common.env
+      - ./env/mysql.env
+    volumes:
+      - ../../db/data/mysql:/var/lib/mysql
+    networks: 
+      - keycloak_net_export
+
+  keycloak_export:
+    build: .
+    container_name: keycloak
+    depends_on:
+      - keycloak_db_export
+    env_file:
+      - ./env/common.env
+      - ./env/keycloak.env
+    links:
+      - keycloak_db_export
+    volumes:
+      - ./files:/tmp/keycloak/export
+    networks: 
+      - keycloak_net_export
+
+networks:
+  keycloak_net_export:
+    driver: bridge

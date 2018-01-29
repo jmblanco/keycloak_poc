@@ -2,7 +2,7 @@ version: '2'
 
 services:
   keycloak_db:
-    image: mysql
+    image: mariadb
     container_name: keycloak_db
     env_file:
       - ./env/common.env
@@ -13,6 +13,8 @@ services:
     networks: 
       - keycloak_net
   
+  
+
   keycloak:
     build: components/keycloak/keycloak_ha
     container_name: keycloak
